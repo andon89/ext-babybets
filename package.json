@@ -9,13 +9,37 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@supabase/supabase-js": "^2.100.1",
     "expo": "55.0.10-canary-20260327-0789fbc",
+    "expo-apple-authentication": "55.0.10-canary-20260327-0789fbc",
+    "expo-auth-session": "55.0.11-canary-20260327-0789fbc",
+    "expo-font": "55.0.5-canary-20260327-0789fbc",
+    "expo-linking": "55.0.10-canary-20260327-0789fbc",
+    "expo-router": "55.0.9-canary-20260327-0789fbc",
+    "expo-secure-store": "55.0.10-canary-20260327-0789fbc",
+    "expo-splash-screen": "55.0.14-canary-20260327-0789fbc",
     "expo-status-bar": "55.0.5-canary-20260327-0789fbc",
+    "expo-system-ui": "55.0.12-canary-20260327-0789fbc",
+    "expo-web-browser": "55.0.11-canary-20260327-0789fbc",
+    "nativewind": "^5.0.0-preview.3",
     "react": "19.2.0",
-    "react-native": "0.83.4"
+    "react-native": "0.83.4",
+    "react-native-css": "^3.0.6",
+    "react-native-reanimated": "4.2.1",
+    "react-native-safe-area-context": "~5.6.2",
+    "react-native-screens": "~4.23.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
+    "@testing-library/jest-native": "^5.4.3",
+    "@testing-library/react-native": "^13.3.3",
+    "@types/jest": "^30.0.0",
     "@types/react": "~19.2.2",
+    "jest": "^30.3.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "ts-jest": "^29.4.6",
     "typescript": "~5.9.2"
   },
   "private": true
