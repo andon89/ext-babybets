@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { View, Text, Pressable, ScrollView, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, router } from "expo-router";
 import { getPoolBySlug, getPoolPredictionCount } from "@/lib/pool-service";
 import { CATEGORY_META, formatDate } from "@/lib/constants";
 import { Pool, CategoryKey, CATEGORY_MAX_POINTS } from "@/lib/types";
@@ -122,6 +122,7 @@ export default function PublicPoolPage() {
           </View>
         ) : (
           <Pressable
+            onPress={() => router.push(`/(public)/pool/${slug}/predict`)}
             className="bg-blush rounded-[14px] py-4 px-8 mt-4 w-full max-w-[400px]"
             style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
           >
