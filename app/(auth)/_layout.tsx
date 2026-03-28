@@ -9,6 +9,7 @@ export default function AuthLayout() {
       <Stack.Screen name="pool/[id]/index" />
       <Stack.Screen name="pool/[id]/invite" />
       <Stack.Screen name="pool/[id]/settings" />
+      <Stack.Screen name="pool/[id]/reveal" />
     </Stack>
   );
 }
