@@ -98,6 +98,29 @@ export default function PoolManagementScreen() {
           </Text>
         </Pressable>
 
+        {!pool.revealed && (
+          <Pressable
+            onPress={() => router.push(`/(auth)/pool/${id}/reveal`)}
+            className="bg-sky rounded-[14px] py-4 items-center mb-3"
+            style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
+          >
+            <Text className="font-body text-white font-bold text-base">
+              Reveal Results 🎉
+            </Text>
+          </Pressable>
+        )}
+
+        {pool.revealed && (
+          <Pressable
+            onPress={() => router.push(`/(public)/pool/${pool.slug}/results`)}
+            className="bg-sage-light rounded-[14px] py-4 items-center mb-3"
+          >
+            <Text className="font-body text-sage font-bold text-base" style={{ color: "#6B9E6B" }}>
+              View Results →
+            </Text>
+          </Pressable>
+        )}
+
         <Pressable
           onPress={() => router.push(`/(auth)/pool/${id}/settings`)}
           className="bg-white border border-border rounded-[14px] py-4 items-center mb-6"
