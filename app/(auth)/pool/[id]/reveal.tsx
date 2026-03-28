@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, router } from "expo-router";
 import { getPool, getPoolSettings, updatePool } from "@/lib/pool-service";
 import { supabase } from "@/lib/supabase";
+import { sendRevealEmails } from "@/lib/notifications";
 import { GENDERS, HAIR_AMOUNTS, HAIR_COLORS, EYE_COLORS } from "@/lib/constants";
 import { ChipSelector } from "@/components/ChipSelector";
 import { Pool, PoolSettings } from "@/lib/types";
@@ -102,6 +103,14 @@ export default function RevealScreen() {
         predictions_locked: true,
         revealed: true,
       });
+
+      // Send reveal notification emails (best-effort, don't block)
+      sendRevealEmails({
+        poolId: pool.id,
+        poolName: pool.baby_name,
+        babyName: babyName.trim() || pool.baby_name,
+        announcementUrl: `https://babybets.cc/pool/${pool.slug}/announcement`,
+      }).catch(() => {}); // Fire and forget
 
       router.replace(`/(auth)/pool/${id}`);
     } catch (e: any) {
