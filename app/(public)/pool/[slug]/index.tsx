@@ -114,7 +114,17 @@ export default function PublicPoolPage() {
           })}
         </View>
 
-        {pool.predictions_locked ? (
+        {pool.revealed ? (
+          <Pressable
+            onPress={() => router.push(`/(public)/pool/${slug}/results`)}
+            className="bg-sky rounded-[14px] py-4 px-8 mt-4 w-full max-w-[400px]"
+            style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
+          >
+            <Text className="font-body text-white font-bold text-base text-center">
+              View Results 🏆
+            </Text>
+          </Pressable>
+        ) : pool.predictions_locked ? (
           <View className="bg-honey-light rounded-[14px] py-4 px-8 mt-4 w-full max-w-[400px]">
             <Text className="font-body font-bold text-base text-center" style={{ color: "#E8C87A" }}>
               🔒 Predictions are locked
