@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { View, Text, Pressable, ScrollView, ActivityIndicator } from "react-native";
+import { View, Text, Pressable, ScrollView, ActivityIndicator, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, router } from "expo-router";
 import { getPool } from "@/lib/pool-service";
 import { Pool } from "@/lib/types";
+import { sendInviteEmail } from "@/lib/notifications";
 import * as Clipboard from "expo-clipboard";
 import * as Sharing from "expo-sharing";
 import QRCode from "react-native-qrcode-svg";
@@ -13,6 +14,9 @@ export default function InviteScreen() {
   const [pool, setPool] = useState<Pool | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
+  const [sendingEmail, setSendingEmail] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -99,6 +103,47 @@ export default function InviteScreen() {
             <Text className="font-body text-xs text-ink-muted">iMessage, WhatsApp, Instagram, more</Text>
           </View>
         </Pressable>
+
+        {/* Email invite */}
+        <View className="mt-4">
+          <Text className="font-body text-xs font-bold uppercase tracking-wide text-ink-muted mb-2">
+            Send an email invite
+          </Text>
+          <View className="flex-row gap-2">
+            <TextInput
+              className="flex-1 bg-white border border-border rounded-[14px] px-4 py-3 font-body text-sm text-ink"
+              placeholder="friend@email.com"
+              placeholderTextColor="#A49E96"
+              value={inviteEmail}
+              onChangeText={setInviteEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <Pressable
+              onPress={async () => {
+                if (!inviteEmail.trim() || !pool) return;
+                setSendingEmail(true);
+                await sendInviteEmail({
+                  recipientEmail: inviteEmail.trim(),
+                  poolName: pool.baby_name,
+                  hostName: pool.host_display_name,
+                  poolUrl: poolUrl,
+                });
+                setEmailSent(true);
+                setInviteEmail("");
+                setSendingEmail(false);
+                setTimeout(() => setEmailSent(false), 3000);
+              }}
+              disabled={sendingEmail}
+              className="bg-blush rounded-[14px] px-5 items-center justify-center"
+              style={({ pressed }) => ({ opacity: pressed ? 0.9 : 1 })}
+            >
+              <Text className="font-body text-white font-bold text-sm">
+                {emailSent ? "Sent!" : sendingEmail ? "..." : "Send"}
+              </Text>
+            </Pressable>
+          </View>
+        </View>
 
         <View className="h-8" />
       </ScrollView>
